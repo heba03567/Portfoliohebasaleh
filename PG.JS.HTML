@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مختبر الجافا سكربت - هبة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #FFEB00; --blue-bg: #1f2944; --card: rgba(255,255,255,0.05); }
+        body { background: var(--blue-bg); color: white; font-family: 'DG Heaven', sans-serif; margin: 0; text-align: center; }
+        header { padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; background: rgba(31, 41, 68, 0.9); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; box-sizing: border-box; }
+        .logo { width: 50px; }
+        .main-container { margin-top: 120px; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 5% 10%; }
+        .lab-card { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,235,0,0.1); transition: 0.3s; }
+        .lab-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        h2, h3 { color: var(--gold); }
+        input { padding: 8px; border-radius: 5px; border: none; margin: 5px; width: 80%; }
+        button { background: var(--gold); border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .result { margin-top: 10px; font-weight: bold; color: #00ffcc; min-height: 24px; }
+        #clock { font-size: 1.5rem; font-weight: 900; color: var(--gold); }
+    </style>
+</head>
+<body onload="initLab()">
+
+<header>
+    <img src="w2.png" alt="Logo" class="logo">
+    <nav>
+        <a href="PG.1.html" style="color:white; text-decoration:none; margin-left:20px;">الرئيسية</a>
+        <div id="clock">00:00:00</div>
+    </nav>
+</header>
+
+<h1 style="margin-top: 130px;">مختبر </h1>
+
+<div class="main-container">
+    <div class="lab-card">
+        <h3>1. رسالة ترحيب (Prompt)</h3>
+        <button onclick="welcomeUser()">اضغط للترحيب</button>
+        <p id="res1" class="result"></p>
+    </div>
+
+    <div class="lab-card">
+        <h3>2. العمليات الحسابية</h3>
+        <input type="number" id="num1" placeholder="الرقم الأول">
+        <input type="number" id="num2" placeholder="الرقم الثاني">
+        <button onclick="calculate()">جمع الرقمين</button>
+        <p id="res2" class="result"></p>
+    </div>
+
+    <div class="lab-card">
+        <h3>3. مصفوفة المهارات (Arrays)</h3>
+        <button onclick="showSkills()">عرض عشوائي لمهارة</button>
+        <p id="res3" class="result"></p>
+    </div>
+
+    <div class="lab-card">
+        <h3>4. التحقق المنطقي (Logic)</h3>
+        <input type="number" id="ageInput" placeholder="أدخل عمرك">
+        <button onclick="checkAge()">تحقق</button>
+        <p id="res4" class="result"></p>
+    </div>
+
+    <div class="lab-card">
+        <h3>5. التحكم بالألوان (DOM)</h3>
+        <button onclick="changeBg()">تغيير خلفية الكرت</button>
+    </div>
+
+    <div class="lab-card">
+        <h3>6. عداد تفاعلي (Counters)</h3>
+        <button onclick="counterUp()">زد العداد</button>
+        <p id="res6" class="result">0</p>
+    </div>
+
+    <div class="lab-card">
+        <h3>7. معالجة النصوص</h3>
+        <input type="text" id="textIn" placeholder="اكتب كلمة هنا">
+        <button onclick="reverseText()">عكس الكلمة</button>
+        <p id="res7" class="result"></p>
+    </div>
+
+    <div class="lab-card">
+        <h3>8. التاريخ والوقت</h3>
+        <button onclick="getDate()">ما هو تاريخ اليوم؟</button>
+        <p id="res8" class="result"></p>
+    </div>
+
+    <div class="lab-card">
+        <h3>9. حلقات التكرار (For Loop)</h3>
+        <button onclick="runLoop()">طباعة هبة المبدعه 5 مرات</button>
+        <p id="res9" class="result" style="font-size: 0.8rem;"></p>
+    </div>
+
+    <div class="lab-card">
+        <h3>10. الإخفاء والظهور</h3>
+        <p id="secretText">انت شخص خطير !</p>
+        <button onclick="toggleText()">إخفاء/إظهار</button>
+    </div>
+
+    <div class="lab-card">
+        <h3>11. أرقام عشوائية (Math)</h3>
+        <button onclick="randomLuck()">رقم الحظ العشوائي (1-100)</button>
+        <p id="res11" class="result"></p>
+    </div>
+
+    <div class="lab-card">
+        <h3>12. التحقق من البيانات (Validation)</h3>
+        <input type="email" id="emailIn" placeholder="أدخل إيميل">
+        <button onclick="validateEmail()">فحص الإيميل</button>
+        <p id="res12" class="result"></p>
+    </div>
+</div>
+
+<script>
+    // 1. الترحيب (Prompt)
+    function welcomeUser() {
+        let name = prompt("ما هو اسمك؟");
+        if(name) document.getElementById('res1').innerText = "أهلاً بك يا " + name + " في موقع هبة";
+    }
+
+    // 2. الحساب
+    function calculate() {
+        let n1 = parseFloat(document.getElementById('num1').value);
+        let n2 = parseFloat(document.getElementById('num2').value);
+        document.getElementById('res2').innerText = "الناتج: " + (n1 + n2);
+    }
+
+    // 3. المصفوفات (Arrays)
+    let skills = ["Photoshop", "Illustrator", "JavaScript", "Branding"];
+    function showSkills() {
+        let rand = skills[Math.floor(Math.random() * skills.length)];
+        document.getElementById('res3').innerText = "مهارة اليوم: " + rand;
+    }
+
+    // 4. المنطق (If)
+    function checkAge() {
+        let age = document.getElementById('ageInput').value;
+        document.getElementById('res4').innerText = (age >= 18) ? "أنت شخص بالغ" : "أنت لا تزال شاباً";
+    }
+
+    // 5. التحكم بـ DOM
+    function changeBg() {
+        let cards = document.getElementsByClassName('lab-card');
+        cards[4].style.backgroundColor = cards[4].style.backgroundColor === 'rgb(255, 235, 0)' ? 'rgba(255,255,255,0.05)' : '#FFEB00';
+        cards[4].style.color = cards[4].style.color === 'black' ? 'white' : 'black';
+    }
+
+    // 6. العداد
+    let count = 0;
+    function counterUp() {
+        count++;
+        document.getElementById('res6').innerText = count;
+    }
+
+    // 7. معالجة النصوص
+    function reverseText() {
+        let str = document.getElementById('textIn').value;
+        document.getElementById('res7').innerText = str.split("").reverse().join("");
+    }
+
+    // 8. التاريخ
+    function getDate() {
+        document.getElementById('res8').innerText = new Date().toLocaleDateString('ar-EG');
+    }
+
+    // 9. الحلقات (Loops)
+    function runLoop() {
+        let text = "";
+        for(let i=1; i<=5; i++) { text += i + "- هبة المبدعة "; }
+        document.getElementById('res9').innerText = text;
+    }
+
+    // 10. الإخفاء والظهور
+    function toggleText() {
+        let x = document.getElementById('secretText');
+        x.style.display = (x.style.display === 'none') ? 'block' : 'none';
+    }
+
+    // 11. Math
+    function randomLuck() {
+        document.getElementById('res11').innerText = Math.floor(Math.random() * 100) + 1;
+    }
+
+    // 12. التحقق
+    function validateEmail() {
+        let em = document.getElementById('emailIn').value;
+        if(em.includes("@")) {
+            document.getElementById('res12').innerText = "إيميل صحيح ✅";
+        } else {
+            document.getElementById('res12').innerText = "إيميل خاطئ ❌";
+        }
+    }
+
+    // الساعة المباشرة (Advanced - setInterval)
+    function updateClock() {
+        let now = new Date();
+        document.getElementById('clock').innerText = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+
+    function initLab() { updateClock(); }
+</script>
+
+</body>
+</html>

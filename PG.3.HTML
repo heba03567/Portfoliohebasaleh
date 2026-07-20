@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-ar="تواصل معي | هبة الشرمان" data-en="Contact Me | Heba Alshurman">تواصل معي | هبة الشرمان</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue-bg: #1f2944;
+            --black-card: #141b2d;
+            --gold: #FFEB00;
+            --white: #ffffff;
+            --gray-text: #d1d5db;
+            --border-color: rgba(255, 235, 0, 0.2);
+        }
+
+        body {
+            background-color: var(--blue-bg);
+            color: var(--white);
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            text-align: right;
+            transition: 0.3s ease;
+        }
+
+        body[dir="ltr"] {
+            text-align: left;
+        }
+
+        #star-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* الهيدر الفاخر */
+        header {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 20px 8%; 
+            position: fixed; 
+            top: 0; right: 0; left: 0;
+            width: 100%; 
+            box-sizing: border-box; 
+            z-index: 1000;
+            background: rgba(31, 41, 68, 0.95); 
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo { 
+            width: 50px; 
+            animation: logoPulse 3s infinite ease-in-out;
+        }
+
+        @keyframes logoPulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 0px var(--gold)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 10px var(--gold)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--gold)); }
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--white); text-decoration: none;
+            font-size: 0.95rem; font-weight: 400; transition: 0.3s;
+        }
+        nav a:hover, nav a.active { color: var(--gold); }
+
+        /* زر الترجمة */
+        .lang-btn {
+            background: rgba(255, 235, 0, 0.1);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .lang-btn:hover {
+            background: var(--gold);
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        /* قسم التواصل الرئيسي */
+        .contact-section {
+            min-height: calc(100vh - 100px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 8% 80px 8%;
+            box-sizing: border-box;
+        }
+
+        .contact-header {
+            text-align: center;
+            max-width: 700px;
+            margin-bottom: 40px;
+        }
+
+        .contact-header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 0 0 15px 0;
+        }
+
+        .contact-header h1 span {
+            color: var(--gold);
+        }
+
+        .contact-header p {
+            color: var(--gray-text);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* حاوية كاردات وسائل التواصل مرتبة تحت بعضها */
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .contact-card {
+            background: var(--black-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 30px;
+            text-align: center;
+            transition: 0.4s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 235, 0, 0.15);
+        }
+
+        .contact-card h3 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .contact-card p {
+            color: var(--gray-text);
+            font-size: 0.95rem;
+            margin: 0;
+            word-break: break-all;
+        }
+
+        /* ملاحظة التعاون المهني بالأسفل */
+        .hire-banner {
+            margin-top: 40px;
+            width: 100%;
+            max-width: 700px;
+            background: var(--black-card);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 25px 30px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(255, 235, 0, 0.1);
+        }
+
+        .hire-banner h3 {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .hire-banner p {
+            color: var(--white);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            .contact-card {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="star-canvas"></canvas>
+
+    <header>
+        <img src="w2.png" alt="Logo" class="logo">
+        <div class="nav-container">
+            <nav>
+                <a href="PG.1.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+                <a href="PG.2.html" data-ar="أعمالي" data-en="Portfolio">أعمالي</a>
+                <a href="PG.3.html" class="active" data-ar="تواصل معي" data-en="Contact" style="color: var(--gold);">تواصل معي</a>
+            </nav>
+            <button class="lang-btn" onclick="toggleLanguage()" id="langToggleBtn">English</button>
+        </div>
+    </header>
+
+    <div class="contact-section">
+        <div class="contact-header">
+            <h1 data-ar="دعنا نبتكر معاً" data-en="Let's Create Together">دعنا نبتكر معاً</h1>
+            <p data-ar="يسعدني جداً تواصلكم معي لمناقشة فرص العمل، المشاريع الإبداعية، أو طلبات تصميم الهويات البصرية والابتكار الرقمي." data-en="I am very happy to connect with you to discuss job opportunities, creative projects, visual identity designs, and digital innovation.">يسعدني جداً تواصلكم معي لمناقشة فرص العمل، المشاريع الإبداعية، أو طلبات تصميم الهويات البصرية والابتكار الرقمي.</p>
+        </div>
+
+        <div class="contact-list">
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/heba-al-shurman-82b908303?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" class="contact-card">
+                <h3 data-ar="لينكد إن" data-en="LinkedIn">لينكد إن</h3>
+             
+            </a>
+
+            <!-- Behance -->
+            <a href="https://www.behance.net/hebaal-shurman" target="_blank" class="contact-card">
+                <h3 data-ar="منصة بيهانس" data-en="Behance Portfolio">منصة بيهانس</h3>
+                
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/heba_alshurman_5?igsh=MXRqN3IycWkxOGZ0cQ%3D%3D&utm_source=qr" target="_blank" class="contact-card">
+                <h3 data-ar="انستغرام" data-en="Instagram">انستغرام</h3>
+              
+            </a>
+
+            <!-- Email -->
+            <a href="hebaalshurman38@gmail.com" class="contact-card">
+                <h3 data-ar="البريد الإلكتروني للعمل" data-en="Business Email">البريد الإلكتروني للعمل</h3>
+                <p></p>
+            </a>
+        </div>
+
+        <!-- رسالة تحفيزية للعمل -->
+        <div class="hire-banner">
+            <h3 data-ar="جاهزة لتحويل أفكارك إلى واقع بصري مذهل!" data-en="Ready to turn your ideas into stunning visual reality!">جاهزة لتحويل أفكارك إلى واقع بصري مذهل!</h3>
+            <p data-ar="بعد تصفحك لمعرض أعمالي، يسعدني تلقي رسائلكم واتصالاتكم الهادفة لبدء مشاريع جديدة، أو تقديم الاستشارات والخدمات التصميمية الاحترافية. تواصلوا معي لنصنع التميز معاً!" data-en="After browsing my portfolio, I am glad to receive your messages and inquiries to start new projects or provide professional design services. Contact us to build excellence together!">بعد تصفحك لمعرض أعمالي، يسعدني تلقي رسائلكم واتصالاتكم الهادفة لبدء مشاريع جديدة، أو تقديم الاستشارات والخدمات التصميمية الاحترافية. تواصلوا معي لنصنع التميز معاً!</p>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'ar';
+
+        function toggleLanguage() {
+            const htmlRoot = document.getElementById('html-root');
+            const langBtn = document.getElementById('langToggleBtn');
+            const elements = document.querySelectorAll('[data-ar]');
+
+            if (currentLang === 'ar') {
+                currentLang = 'en';
+                htmlRoot.setAttribute('lang', 'en');
+                htmlRoot.setAttribute('dir', 'ltr');
+                langBtn.textContent = 'العربية';
+            } else {
+                currentLang = 'ar';
+                htmlRoot.setAttribute('lang', 'ar');
+                htmlRoot.setAttribute('dir', 'rtl');
+                langBtn.textContent = 'English';
+            }
+
+            elements.forEach(el => {
+                if (el.tagName === 'TITLE') {
+                    document.title = el.getAttribute(`data-${currentLang}`);
+                } else {
+                    el.textContent = el.getAttribute(`data-${currentLang}`);
+                }
+            });
+        }
+
+        // تأثير النجوم المتحركة
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let stars = [];
+        for(let i=0; i<150; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                speed: Math.random() * 0.5
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#FFEB00';
+            stars.forEach(s => {
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI*2); ctx.fill();
+                s.y += s.speed; if(s.y > canvas.height) s.y = 0;
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
